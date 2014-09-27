@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         html, body {
-            width: 100%;
             height: 100%;
-            padding: 0;
+            width: 100%;
             margin: 0;
-            overflow:hidden;
+            padding: 0;
+            overflow: hidden;
         }
     </style>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="js/AndroidMockup.js"></script>
     <script src="js/appInteraction.js"></script>
 </head>
 <body>
@@ -23,11 +23,14 @@
     <span id="nearestBeacon"></span>
 
     <script>
-        loopNearestBeacon = function() {
-          var beacon = appInteraction.getClosestBeacon();
-          $('#nearestBeacon').html(beacon);
-          setTimeout(loopNearestBeacon, 1000);
-        };
+        var elNearestBeacon = document.getElementById("nearestBeacon"),
+            loopNearestBeacon = function() {
+                var strBeaconId = appInteraction.getClosestBeacon();
+                if(strBeaconId != elNearestBeacon.innerText) {
+                    elNearestBeacon.innerText = strBeaconId;
+                }
+                setTimeout(loopNearestBeacon, 1000);
+            };
 
         appInteraction.showToast("Welcome to WauwMuseum!");
         appInteraction.showBeacons();

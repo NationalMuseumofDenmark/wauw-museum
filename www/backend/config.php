@@ -1,4 +1,4 @@
-<?
+<?php
   $solr_end_point = 'http://solr.smk.dk:8080/solr/prod_all_dk/select';
 
   $sql_credentials = array(

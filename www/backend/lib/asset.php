@@ -1,4 +1,4 @@
-<?
+<?php
 class Asset {
 
       private $solr_end_point;
@@ -15,27 +15,32 @@ class Asset {
       }
 
       function get_solr_asset($id) {
-          $request_url = $this->solr_end_point . '?q=id_s:' .
-              $id . '&wt=json&rows=20&indent=true';
-          $json_contents = json_decode(file_get_contents($request_url), true);
-          return $json_contents['response']['docs'][0];
+          $request_url = $this->solr_end_point .
+              '?q=id_s:' .
+              $id .
+              '&wt=json&rows=1&indent=true';
+
+          $contents = file_get_contents($request_url);
+          $json = json_decode($contents, true);
+
+          return $json['response']['docs'][0];
       }
 
       function get_asset($id) {
           $statement = $this->sql_connection->prepare(
-              'SELECT * FROM beacon WHERE uuid=:uuid'
+              'SELECT * FROM beacon WHERE id=:id'
           );
-          $statement->bindParam(':uuid', $id);
+          $statement->bindParam(':id', $id);
           $statement->execute();
           $results = $statement->fetchAll(PDO::FETCH_ASSOC);
           return $results[0];
       }
 
-      function get_audio($id) {
+      function get_audio_asset($id) {
           $statement = $this->sql_connection->prepare(
-              'SELECT * FROM audio WHERE uuid=:uuid'
+              'SELECT * FROM audio WHERE id=:id'
           );
-          $statement->bindParam(':uuid', $id);
+          $statement->bindParam(':id', $id);
           $statement->execute();
           $results = $statement->fetchAll(PDO::FETCH_ASSOC);
           return $results[0];

@@ -22,5 +22,9 @@ var Android = Android || {
     "getBestBeacon": function() {
         console.log("getBestBeacon");
         return "UUID-18998-42024";
+    },
+    "getBestBeacon": function() {
+        console.log("getBestBeacon");
+        return "UUID-18998-42024";
     }
 };

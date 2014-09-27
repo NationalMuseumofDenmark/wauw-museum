@@ -23,19 +23,35 @@
     <span id="nearestBeacon"></span>
 
     <script>
-        var elNearestBeacon = document.getElementById("nearestBeacon"),
-            loopNearestBeacon = function() {
+        var elNearestBeacon = document.getElementById("nearestBeacon");
+
+        function loopHandler() {
+            var counter = 0;
+            var lastBeacon = '';
+
+            this.loopNearestBeacon = function loopNearestBeacon() {
+
                 var strBeaconId = appInteraction.getClosestBeacon();
-                if(strBeaconId != elNearestBeacon.innerText) {
-                    elNearestBeacon.innerText = strBeaconId;
+                if(strBeaconId == lastBeacon) {
+                    counter = counter + 1;
                 }
+                else {
+                    counter = 0;
+                }
+
+                if(counter >= 3 && elNearestBeacon.innerText !== lastBeacon) {
+                    elNearestBeacon.innerText = lastBeacon;
+                }
+
                 setTimeout(loopNearestBeacon, 1000);
             };
+        };
 
         appInteraction.showToast("Welcome to WauwMuseum!");
         appInteraction.showBeacons();
 
-        setTimeout(loopNearestBeacon, 1000);
+        var loophandle = new loopHandler();
+        setTimeout(loophandle.loopNearestBeacon, 1000);
     </script>
 </body>
 </html>

@@ -63,6 +63,8 @@
                 elNameWork.innerText = objResponseData["solr"]["title_dk"];
                 elDescription.innerText = objResponseData["solr"]["description_note_dk"];
                 elMp3File.innerHTML = "<audio controls autoplay><source src=\"" + objResponseData["audio"]["sound_file"] + "\" id=\"mp3FileSource\" type=\"audio/mpeg\"/></audio>";
+                elMp3File.firstChild.play();
+                elMp3File.firstChild.currentTime = 0;
             };
 
         setInterval(updateBestBeacon, 1000);

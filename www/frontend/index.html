@@ -14,7 +14,7 @@
             overflow:hidden;
         }
     </style>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="js/appInteraction.js"></script>
 </head>
 <body>
@@ -25,7 +25,7 @@
     <script>
         loopNearestBeacon = function() {
           var beacon = appInteraction.getClosestBeacon();
-          $('#nearestBeacon').val(beacon);
+          $('#nearestBeacon').html(beacon);
           setTimeout(loopNearestBeacon, 1000);
         };
 

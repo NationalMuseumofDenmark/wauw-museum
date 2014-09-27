@@ -1,7 +1,7 @@
 var solrRequest = function() {
     "use strict";
 
-    var strSchnabelUrl = "http://wauw.geekworld.dk/api/asset/",
+    var strSchnabelUrl = "/api/asset/",
         httpRequest = (function() {
             if(window.XMLHttpRequest) { // Mozilla, Safari, ...
                 return new XMLHttpRequest();
@@ -32,11 +32,13 @@ var solrRequest = function() {
         getContents = function(callback) {
             if(httpRequest.readyState === 4) {
                 if(httpRequest.status === 200) {
+                    var json = JSON.parse(httpRequest.responseText);
+
                     if(callback) {
-                        callback(httpRequest.responseText);
+                        callback(json);
                     }
                     else {
-                        return httpRequest.responseText;
+                        return json;
                     }
                 }
                 else {

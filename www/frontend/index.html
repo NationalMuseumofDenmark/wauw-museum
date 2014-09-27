@@ -19,11 +19,15 @@
 <body>
     <h1>It works!</h1>
     <script>
+        loopNearestBeacon = function() {
+            document.write(appInteraction.getClosestBeacon());
+            setTimeout(loopNearestBeacon, 1000);
+        };
+
         appInteraction.showToast("Welcome to WauwMuseum!");
         appInteraction.showBeacons();
-        window.setInterval(function() {
-            document.write(appInteraction.getClosestBeacon());
-        }, 1000);
+
+        setTimeout(loopNearestBeacon, 1000);
     </script>
 </body>
 </html>

@@ -9,10 +9,10 @@ var Android = Android || {
     },
     "getClosestBeacon": function() {
         console.log("getClosestBeacon");
-        return "{\"UUID-18998-42025\": 7.493826493570}";
+        return "{\"UUID-18499-19998\": 7.493826493570}";
     },
     "getBestBeacon": function() {
         console.log("getBestBeacon");
-        return "{\"UUID-18998-42025\": 7.493826493570}";
+        return "{\"UUID-18499-19998\": 7.493826493570}";
     }
 };

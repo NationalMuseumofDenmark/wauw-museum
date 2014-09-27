@@ -5,7 +5,7 @@ var appInteraction = {
 
     "showBeacons": function() {
         var strBeacons = "",
-            arrBeacons = Android.getAllBeacons();
+            arrBeacons = JSON.parse(Android.getAllBeacons());
         for(strBeaconId in arrBeacons) {
             strBeacons += strBeaconId + " [" + arrBeacons[strBeaconId] + "]\n"
         }
@@ -13,14 +13,19 @@ var appInteraction = {
     },
 
     "getAllBeacons": function() {
-        return Android.getAllBeacons();
+        return JSON.parse(Android.getAllBeacons());
     },
 
     "getClosestBeacon": function() {
-        return Android.getClosestBeacon();
+        return JSON.parse(Android.getClosestBeacon());
     },
 
     "getBestBeacon": function() {
-        return Android.getBestBeacon();
+        objBestBeacon = JSON.parse(Android.getBestBeacon());
+        for(strBestId in objBestBeacon) {
+            if(objBestBeacon.hasOwnProperty(strBestId)) {
+                return strBestId;
+            }
+        }
     }
 };

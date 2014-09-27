@@ -5,26 +5,33 @@ var appInteraction = {
 
     "showBeacons": function() {
         var strBeacons = "",
-            arrBeacons = JSON.parse(Android.getAllBeacons());
-        for(strBeaconId in arrBeacons) {
-            strBeacons += strBeaconId + " [" + arrBeacons[strBeaconId] + "]\n"
+            objBeacons = JSON.parse(Android.getAllBeacons());
+        for(strBeaconId in objBeacons) {
+            strBeacons += strBeaconId + " [" + objBeacons[strBeaconId] + "]\n"
         }
         appInteraction.showToast("Found beacons:\n" + strBeacons);
     },
 
     "getAllBeacons": function() {
-        return JSON.parse(Android.getAllBeacons());
+        var objResponseData = JSON.parse(Android.getAllBeacons());
+        console.log(objResponseData);
+        return objResponseData;
     },
 
     "getClosestBeacon": function() {
-        return JSON.parse(Android.getClosestBeacon());
+        var objResponseData = JSON.parse(Android.getClosestBeacon());
+        console.log(objResponseData);
+        return objResponseData;
     },
 
     "getBestBeacon": function() {
-        objBestBeacon = JSON.parse(Android.getBestBeacon());
-        for(strBestId in objBestBeacon) {
-            if(objBestBeacon.hasOwnProperty(strBestId)) {
-                return strBestId;
+        var objResponseData = JSON.parse(Android.getBestBeacon());
+        console.log(objResponseData)
+        if(objResponseData) {
+            for(strBestId in objResponseData) {
+                if(objResponseData.hasOwnProperty(strBestId)) {
+                    return strBestId;
+                }
             }
         }
     }

@@ -1,5 +1,5 @@
 <?php
-
+die('Workz!');
 require_once('config.php');
 require_once('lib/asset.php');
 

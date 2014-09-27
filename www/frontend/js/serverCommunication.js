@@ -1,7 +1,8 @@
 var solrRequest = function() {
     "use strict";
 
-    var httpRequest = (function() {
+    var strSchnabelUrl = "http://wauw.geekworld.dk/api/asset/",
+        httpRequest = (function() {
             if(window.XMLHttpRequest) { // Mozilla, Safari, ...
                 return new XMLHttpRequest();
             }
@@ -20,20 +21,32 @@ var solrRequest = function() {
             appInteraction.showToast("Din enhed kan desværre ikke snakke med serveren :(");
             return false;
         })(),
-        makeRequest = function(url) {
-            httpRequest.onreadystatechange = alertContents;
-            httpRequest.open('GET', url);
-            httpRequest.send();
-        }
-}
 
-    alertContents = function() {
-        if(httpRequest.readyState === 4) {
-            if(httpRequest.status === 200) {
-                alert(httpRequest.responseText);
+        makeRequest = function(strUUID, callback) {
+            httpRequest.onreadystatechange = function() { getContents(callback); };
+            console.log("Requesting: " + strSchnabelUrl + strUUID);
+            httpRequest.open('GET', strSchnabelUrl + strUUID);
+            httpRequest.send();
+        },
+
+        getContents = function(callback) {
+            if(httpRequest.readyState === 4) {
+                if(httpRequest.status === 200) {
+                    if(callback) {
+                        callback(httpRequest.responseText);
+                    }
+                    else {
+                        return httpRequest.responseText;
+                    }
+                }
+                else {
+                    console.log("There was a problem with the request.");
+                    return false;
+                }
             }
-            else {
-                alert('There was a problem with the request.');
-            }
-        }
-    };
+        };
+
+    this.retrieveJson = function(strUUID, callback) {
+        makeRequest(strUUID, callback);
+    }
+};

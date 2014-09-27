@@ -10,6 +10,7 @@
 
     <script src="js/AndroidMockup.js"></script>
     <script src="js/appInteraction.js"></script>
+    <script src="js/ServerCommunication.js"></script>
     <script src="js/LoopHandler.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </head>
@@ -34,7 +35,14 @@
 
         var loophandle = new LoopHandler();
         setTimeout(loophandle.loopNearestBeacon, 1000);
+
         setInterval(function() { elBestBeacon.innerText = appInteraction.getBestBeacon(); }, 1000);
+
+        var getResource = function(strContent) {
+            console.log("Retrieved: " + strContent);
+        }
+        objRequestor = new solrRequest();
+        strResponse = objRequestor.retrieveJson("18499-19998");
     </script>
 </body>
 </html>

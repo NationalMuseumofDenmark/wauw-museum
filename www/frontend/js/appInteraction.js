@@ -8,7 +8,15 @@ var appInteraction = {
         appInteraction.showToast("Found beacons: " + arrBeacons);
     },
 
+    "getAllBeacons": function() {
+        return Android.getAllBeacons();
+    },
+
     "getClosestBeacon": function() {
         return Android.getClosestBeacon();
+    },
+
+    "getBestBeacon": function() {
+        return Android.getBestBeacon();
     }
 };

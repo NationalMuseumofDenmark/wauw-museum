@@ -32,7 +32,7 @@
             this.loopNearestBeacon = function loopNearestBeacon() {
 
                 var strBeaconId = appInteraction.getClosestBeacon();
-                if(strBeaconId == lastBeacon) {
+                if(strBeaconId === lastBeacon) {
                     counter = counter + 1;
                 }
                 else {
@@ -43,6 +43,7 @@
                     elNearestBeacon.innerText = lastBeacon;
                 }
 
+                lastBeacon = strBeaconId;
                 setTimeout(loopNearestBeacon, 1000);
             };
         };

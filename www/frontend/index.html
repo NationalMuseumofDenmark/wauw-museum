@@ -9,13 +9,12 @@
         html, body {
             height: 100%;
             width: 100%;
-            margin: 0;
-            padding: 0;
             overflow: hidden;
         }
     </style>
     <script src="js/AndroidMockup.js"></script>
     <script src="js/appInteraction.js"></script>
+    <script src="js/LoopHandler.js"></script>
 </head>
 <body>
 
@@ -25,33 +24,10 @@
     <script>
         var elNearestBeacon = document.getElementById("nearestBeacon");
 
-        function loopHandler() {
-            var counter = 0;
-            var lastBeacon = '';
-
-            this.loopNearestBeacon = function loopNearestBeacon() {
-
-                var strBeaconId = appInteraction.getClosestBeacon();
-                if(strBeaconId === lastBeacon) {
-                    counter = counter + 1;
-                }
-                else {
-                    counter = 0;
-                }
-
-                if(counter >= 3 && elNearestBeacon.innerText !== lastBeacon) {
-                    elNearestBeacon.innerText = lastBeacon;
-                }
-
-                lastBeacon = strBeaconId;
-                setTimeout(loopNearestBeacon, 1000);
-            };
-        };
-
         appInteraction.showToast("Welcome to WauwMuseum!");
         appInteraction.showBeacons();
 
-        var loophandle = new loopHandler();
+        var loophandle = new LoopHandler();
         setTimeout(loophandle.loopNearestBeacon, 1000);
     </script>
 </body>

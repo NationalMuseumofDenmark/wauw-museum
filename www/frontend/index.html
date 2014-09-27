@@ -24,6 +24,8 @@
 
     <p>Best beacon: <span id="bestBeacon"></span></p>
 
+    <div id="mp3File"></div>
+
     <script>
         var elBestBeacon = document.getElementById("bestBeacon");
 
@@ -32,8 +34,10 @@
 
         setInterval(function() { elBestBeacon.innerText = appInteraction.getBestBeacon(); }, 1000);
 
-        var getResource = function(strContent) {
-            console.log("Retrieved: " + strContent);
+        var getResource = function(jsonContent) {
+            var elMp3File = document.getElementById("mp3File");
+            var sound_file = jsonContent['audio']['sound_file'];
+            elMp3File.innerHTML = '<audio controls><source src="' + sound_file + '" id="mp3File" type="audio/mpeg"/></audio>';
         }
         objRequestor = new solrRequest();
         strResponse = objRequestor.retrieveJson("18499-19998", getResource);

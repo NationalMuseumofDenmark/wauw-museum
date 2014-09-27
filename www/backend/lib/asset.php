@@ -19,17 +19,7 @@ class Asset {
           $contents = file_get_contents($request_url);
           $json = json_decode($contents, true);
 
-          if(!array_key_exists('docs', $json['response']) || !is_array($json['response']['docs'])) {
-              $request_url = $this->solr_end_point . '?q=id:' . $id . '&wt=json&rows=1&indent=true';
-              $contents = file_get_contents($request_url);
-              $json = json_decode($contents, true);
-          }
-
-          if(!array_key_exists('docs', $json['response']) || !is_array($json['response']['docs'])) {
-              return false;
-          }
-
-          return array_shift($json['response']['docs']);
+          return $json['response']['docs'][0];
       }
 
       function get_asset($id, $type) {

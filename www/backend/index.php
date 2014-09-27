@@ -1,16 +1,21 @@
 <?php
-die('Workz!');
+error_reporting(E_ALL);
+
+// We need an asset, so just kill everything if one hasn't been specified
+if(!array_key_exists('id', $_GET) || empty($_GET['id'])) {
+    die('ID not found!');
+}
+$id = $_GET['id'];
+
+// Configure end point, database connection, and setup the asset fetcher/handler thingy
 require_once('config.php');
 require_once('lib/asset.php');
 
 /* dispatch */
 
 $asset_handler = new Asset($sql_credentials, $solr_end_point);
+echo '<pre>Asset handler: ' . var_export($asset_handler, true) . '</pre>';
 
-if(!array_key_exists('id', $_GET) || empty($_GET['id'])) {
-    die('ID not found!');
-}
-$id = $_GET['id'];
 
 /* Asset from DB */
 $asset = $asset_handler->get_asset($id);

@@ -19,6 +19,14 @@ class Asset {
           $contents = file_get_contents($request_url);
           $json = json_decode($contents, true);
 
+          if(!array_key_exists('response', $json)
+             || !array_key_exists('docs', $json['response'])
+             || !array_key_exists(0, $json['response']['docs'])
+             || !is_array($json['response']['docs'][0])
+          ) {
+              return false;
+          }
+
           return $json['response']['docs'][0];
       }
 

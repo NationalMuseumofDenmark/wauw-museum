@@ -1,26 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>WauwMuseum</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            overflow:hidden;
+        }
+    </style>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="js/appInteraction.js"></script>
 </head>
 <body>
-<h1>It works!</h1>
-<span id="nearestBeacon"></span>
 
-<script>
-    loopNearestBeacon = function() {
-        var beacon = appInteraction.getClosestBeacon();
-        if(beacon != $('#nearestBeacon').val()) {
-          $('#nearestBeacon').val(beacon);
-        }
+    <h1>It works!</h1>
+    <span id="nearestBeacon"></span>
+
+    <script>
+        loopNearestBeacon = function() {
+          var beacon = appInteraction.getClosestBeacon();
+          if(beacon != $('#nearestBeacon').val()) {
+              $('#nearestBeacon').val(beacon);
+          }
+          setTimeout(loopNearestBeacon, 1000);
+        };
+
+        appInteraction.showToast("Welcome to WauwMuseum!");
+        appInteraction.showBeacons();
+
         setTimeout(loopNearestBeacon, 1000);
-    };
-
-    appInteraction.showAndroidToast();
-
-    setTimeout(loopNearestBeacon, 1000);
-</script>
+    </script>
 </body>
 </html>

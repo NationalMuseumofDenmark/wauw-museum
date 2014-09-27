@@ -1,6 +1,6 @@
 var appInteraction = {
     "showAndroidToast": function() {
-        Android.showToast();
+        Android.showToast('Hest');
     },
     "getClosestBeacon": function() {
         return Android.getClosestBeacon();

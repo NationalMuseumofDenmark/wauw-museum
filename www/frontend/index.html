@@ -62,7 +62,14 @@
                 elNameArtist.innerText = objResponseData["solr"]["artist_name"].join(", ");
                 elNameWork.innerText = objResponseData["solr"]["title_dk"];
                 elDescription.innerText = objResponseData["solr"]["description_note_dk"];
-                elMp3File.innerHTML = "<audio controls autoplay><source src=\"" + objResponseData["audio"]["sound_file"] + "\" id=\"mp3FileSource\" type=\"audio/mpeg\"/></audio>";
+                var elAudio = document.createElement('audio');
+                elAudio.setAttribute('src', objResponseData["audio"]["sound_file"]);
+                elAudio.load();
+                elAudio.onloadstart = function() { 
+                  elAudio.play();
+                };
+
+                elMp3File.appendChild(elAudio);
             };
 
         setInterval(updateBestBeacon, 1000);

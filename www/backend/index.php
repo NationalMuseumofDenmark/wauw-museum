@@ -27,6 +27,7 @@ $final_asset = array(
     "audio"=>$audio_asset
 );
 
+header('Content-type: application/json');
 echo json_encode($final_asset);
 
 ?>

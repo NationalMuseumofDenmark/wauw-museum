@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>WauwMuseum</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            overflow:hidden;
+        }
+    </style>
     <script src="js/appInteraction.js"></script>
 </head>
 <body>
-<h1>It works!</h1>
-<script>
-    appInteraction.showAndroidToast();
-    document.write("No tåååst?");
-</script>
+    <h1>It works!</h1>
+    <script>
+        appInteraction.showToast("Welcome to WauwMuseum!");
+        appInteraction.showBeacons();
+    </script>
 </body>
 </html>

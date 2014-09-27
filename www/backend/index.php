@@ -37,5 +37,5 @@ try {
     echo json_encode($final_asset);
 }
 catch(Exception $e) {
-    echo '<pre>' . var_export($e->getMessage(), true);
+    echo json_encode($e->getMessage());
 }

@@ -31,7 +31,8 @@
     </div>
 
     <script>
-        var elBestBeacon = document.getElementById("bestBeacon"),
+        var strBestBeaconId,
+            elBestBeacon = document.getElementById("bestBeacon"),
             elPictureMain = document.getElementById("picture_main"),
             elNameArtist = document.getElementById("name_artist"),
             elNameWork = document.getElementById("name_work"),
@@ -49,8 +50,11 @@
                     arrBestId = strBestId.split("-");
                     strBestIdCropped = arrBestId[arrBestId.length - 2] + "-" + arrBestId[arrBestId.length - 1];
 
-                    elBestBeacon.innerText = strBestIdCropped + " [" + strBestId + "]";
-                    objRequestor.retrieveJson(strBestIdCropped, getResource);
+                    if(strBestId != strBestBeaconId) {
+                        strBestBeaconId = strBestId;
+                        elBestBeacon.innerText = strBestIdCropped + " [" + strBestId + "]";
+                        objRequestor.retrieveJson(strBestIdCropped, getResource);
+                    }
                 }
             },
             getResource = function(objResponseData) {

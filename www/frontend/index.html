@@ -25,9 +25,7 @@
     <script>
         loopNearestBeacon = function() {
           var beacon = appInteraction.getClosestBeacon();
-          if(beacon != $('#nearestBeacon').val()) {
-              $('#nearestBeacon').val(beacon);
-          }
+          $('#nearestBeacon').val(beacon);
           setTimeout(loopNearestBeacon, 1000);
         };
 

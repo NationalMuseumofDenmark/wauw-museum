@@ -11,7 +11,6 @@
     <script src="js/AndroidMockup.js"></script>
     <script src="js/appInteraction.js"></script>
     <script src="js/ServerCommunication.js"></script>
-    <script src="js/LoopHandler.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </head>
 <body>
@@ -23,18 +22,13 @@
 
     </div><!-- /.container -->
 
-    <p>Nearest beacon: <span id="nearestBeacon"></span></p>
     <p>Best beacon: <span id="bestBeacon"></span></p>
 
     <script>
-        var elNearestBeacon = document.getElementById("nearestBeacon");
         var elBestBeacon = document.getElementById("bestBeacon");
 
         appInteraction.showToast("Welcome to WauwMuseum!");
         appInteraction.showBeacons();
-
-        var loophandle = new LoopHandler();
-        setTimeout(loophandle.loopNearestBeacon, 1000);
 
         setInterval(function() { elBestBeacon.innerText = appInteraction.getBestBeacon(); }, 1000);
 

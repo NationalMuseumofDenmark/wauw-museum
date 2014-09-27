@@ -16,30 +16,27 @@ class Asset {
 
       function get_solr_asset($id) {
           $request_url = $this->solr_end_point . '?q=id_s:' . $id . '&wt=json&rows=1&indent=true';
-
           $contents = file_get_contents($request_url);
           $json = json_decode($contents, true);
 
-          return $json['response']['docs'][0];
+          if(!array_key_exists('docs', $json['response']) || !is_array($json['response']['docs'])) {
+              $request_url = $this->solr_end_point . '?q=id:' . $id . '&wt=json&rows=1&indent=true';
+              $contents = file_get_contents($request_url);
+              $json = json_decode($contents, true);
+          }
+
+          if(!array_key_exists('docs', $json['response']) || !is_array($json['response']['docs'])) {
+              return false;
+          }
+
+          return array_shift($json['response']['docs']);
       }
 
-      function get_asset($id) {
-          $statement = $this->sql_connection->prepare(
-              'SELECT * FROM beacon WHERE id=:id'
-          );
+      function get_asset($id, $type) {
+          $statement = $this->sql_connection->prepare('SELECT * FROM ' . $type . ' WHERE id=:id');
           $statement->bindParam(':id', $id);
           $statement->execute();
           $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-          return $results[0];
-      }
-
-      function get_audio_asset($id) {
-          $statement = $this->sql_connection->prepare(
-              'SELECT * FROM audio WHERE id=:id'
-          );
-          $statement->bindParam(':id', $id);
-          $statement->execute();
-          $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-          return $results[0];
+          return array_shift($results);
       }
 };

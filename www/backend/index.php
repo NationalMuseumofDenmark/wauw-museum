@@ -19,18 +19,20 @@ try {
 
 
     /* Asset from DB */
-    $asset = $asset_handler->get_asset($id);
+    $asset = $asset_handler->get_asset($id, 'beacon');
 
     /* Audio */
-    $audio_asset = $asset_handler->get_audio_asset($id);
+    $audio_asset = $asset_handler->get_asset($id, 'audio');
 
     /* SOLR / SMK */
     $solr_ref = $asset['solr_ref'];
     $solr_asset = $asset_handler->get_solr_asset($solr_ref);
 
     $final_asset = array(
-        "solr"=>$solr_asset,
-        "audio"=>$audio_asset
+        'beacon_id' => $id,
+        'solr_id'   => $solr_ref,
+        'solr'      => $solr_asset,
+        'audio'     => $audio_asset
     );
 
     header('Content-type: application/json');

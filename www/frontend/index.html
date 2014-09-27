@@ -21,6 +21,9 @@
     <script>
         appInteraction.showToast("Welcome to WauwMuseum!");
         appInteraction.showBeacons();
+        window.setInterval(function() {
+            document.write(appInteraction.getClosestBeacon());
+        }, 1000);
     </script>
 </body>
 </html>

@@ -15,7 +15,10 @@ var Android = Android || {
                 "UUID-18998-42025",
             ]
         },
-        "getClosestBeacon": function() { console.log("getClosestBeacon"); }
+        "getClosestBeacon": function() {
+            console.log("getClosestBeacon");
+            return "UUID-18998-42019";
+        }
     },
     appInteraction = {
         "showToast": function(strMessage) {
@@ -25,5 +28,9 @@ var Android = Android || {
         "showBeacons": function() {
             var arrBeacons = Android.getAllBeacons();
             appInteraction.showToast("Found beacons: " + arrBeacons);
+        },
+
+        "getClosestBeacon": function() {
+            return Android.getClosestBeacon();
         }
-    }
+};

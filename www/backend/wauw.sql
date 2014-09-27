@@ -23,9 +23,9 @@ DROP TABLE IF EXISTS `audio`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `audio` (
-  `uuid` varchar(255) NOT NULL DEFAULT '',
+  `id` varchar(255) NOT NULL DEFAULT '',
   `sound_file` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`uuid`)
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -35,6 +35,9 @@ CREATE TABLE `audio` (
 
 LOCK TABLES `audio` WRITE;
 /*!40000 ALTER TABLE `audio` DISABLE KEYS */;
+INSERT INTO `audio` VALUES ('18499-19998','http://www.gotfuturama.com/Multimedia/EpisodeSounds/1ACV02/07.mp3');
+INSERT INTO `audio` VALUES ('18998-42019', 'http://www.gotfuturama.com/Multimedia/EpisodeSounds/1ACV02/10.mp3');
+INSERT INTO `audio` VALUES ('6191-54583', 'http://www.gotfuturama.com/Multimedia/EpisodeSounds/1ACV02/16.mp3');
 /*!40000 ALTER TABLE `audio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -46,9 +49,9 @@ DROP TABLE IF EXISTS `beacon`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `beacon` (
-  `uuid` varchar(255) NOT NULL DEFAULT '',
+  `id` varchar(255) NOT NULL DEFAULT '',
   `solr_ref` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`uuid`)
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -58,7 +61,9 @@ CREATE TABLE `beacon` (
 
 LOCK TABLES `beacon` WRITE;
 /*!40000 ALTER TABLE `beacon` DISABLE KEYS */;
-INSERT INTO `beacon` VALUES ('b9407f30-f5f8-466e-aff9-25556b57fe6d','KKSgb9875/11');
+INSERT INTO `beacon` VALUES ('18499-19998','KKSgb9875/11');
+INSERT INTO `beacon` VALUES ('18998-42019', 'KKSgb9875/18');
+INSERT INTO `beacon` VALUES ('6191-54583', 'KKSgb9875/8');
 /*!40000 ALTER TABLE `beacon` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -70,9 +75,9 @@ DROP TABLE IF EXISTS `rating`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rating` (
-  `uuid` varchar(255) DEFAULT NULL,
+  `id` varchar(255) DEFAULT NULL,
   `rating` int(11) DEFAULT NULL,
-  KEY `fk_beacon` (`uuid`)
+  KEY `fk_beacon` (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

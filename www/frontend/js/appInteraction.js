@@ -4,8 +4,12 @@ var appInteraction = {
     },
 
     "showBeacons": function() {
-        var arrBeacons = Android.getAllBeacons();
-        appInteraction.showToast("Found beacons: " + arrBeacons);
+        var strBeacons = "",
+            arrBeacons = Android.getAllBeacons();
+        for(strBeaconId in arrBeacons) {
+            strBeacons += strBeaconId + " [" + arrBeacons[strBeaconId] + "]\n"
+        }
+        appInteraction.showToast("Found beacons:\n" + strBeacons);
     },
 
     "getAllBeacons": function() {

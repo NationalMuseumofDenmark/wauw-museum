@@ -15,10 +15,7 @@ class Asset {
       }
 
       function get_solr_asset($id) {
-          $request_url = $this->solr_end_point .
-              '?q=id_s:' .
-              $id .
-              '&wt=json&rows=1&indent=true';
+          $request_url = $this->solr_end_point . '?q=id_s:' . $id . '&wt=json&rows=1&indent=true';
 
           $contents = file_get_contents($request_url);
           $json = json_decode($contents, true);
@@ -46,5 +43,3 @@ class Asset {
           return $results[0];
       }
 };
-
-?>

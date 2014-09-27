@@ -6,4 +6,3 @@
       'username'=>'root',
       'password'=>'root'
   );
-?>

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.content.Intent;
 import android.content.Context;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
@@ -13,8 +12,8 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
-    private String BeaconUUID = "UUID1234-4567";
-    private String url = "http://www.google.de";
+    private String BeaconUUID = "UUID-1234-4567";
+    private String url = "http://wauw.geekworld.dk";
     private final String webAppInterfaceName = "Android";
 
     Context context;
@@ -69,7 +68,22 @@ public class MainActivity extends Activity {
         // Hardcoded beacon replace with beacon data.
         @JavascriptInterface
         public String getClosestBeacon() {
-            return "UUID-18998-42019";
+            return BeaconUUID;
+        }
+
+        // Hardcoded beacons replace with beacon data.
+        @JavascriptInterface
+        public String[] getAllBeacons() {
+            String[] beaconArray = {
+                    "UUID-18998-42019",
+                    "UUID-18998-42020",
+                    "UUID-18998-42021",
+                    "UUID-18998-42022",
+                    "UUID-18998-42023",
+                    "UUID-18998-42024",
+                    "UUID-18998-42025",
+            };
+            return beaconArray;
         }
     }
 

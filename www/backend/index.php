@@ -37,5 +37,6 @@ try {
     echo json_encode($final_asset);
 }
 catch(Exception $e) {
+    header('Content-type: application/json');
     echo json_encode($e->getMessage());
 }

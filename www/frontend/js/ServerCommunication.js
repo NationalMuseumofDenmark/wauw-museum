@@ -1,7 +1,7 @@
 var solrRequest = function() {
     "use strict";
 
-    var strSchnabelUrl = "/api/asset/",
+    var strSchnabelUrl = "http://wauw.geekworld.dk/api/asset/",
         httpRequest = (function() {
             if(window.XMLHttpRequest) { // Mozilla, Safari, ...
                 return new XMLHttpRequest();

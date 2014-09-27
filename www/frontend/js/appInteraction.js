@@ -1,7 +1,4 @@
-var Android = Android || {
-        "showToast": function() {}
-    },
-    appInteraction = {
+var appInteraction = {
     "showAndroidToast": function() {
         Android.showToast();
     }

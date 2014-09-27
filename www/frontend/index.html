@@ -8,7 +8,10 @@
 <h1>It works!</h1>
 <script>
     appInteraction.showAndroidToast();
-    document.write("No tåååst?");
+
+    setTimeout(function() {
+        document.write(appInteraction.getClosestBeacon());
+    }, 1000);
 </script>
 </body>
 </html>

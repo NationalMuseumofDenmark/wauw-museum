@@ -29,14 +29,13 @@
     </div>
     <div class="panel right">
         <div id="description"></div>
+        <p>Beacon: <span id="best_beacon"></span></p>
     </div>
-
-    <!-- <p>Best beacon: <span id="bestBeacon"></span></p> -->
 
     <script>
         var strBestBeaconId,
             blnAudioPlaying = false,
-            elBestBeacon = document.getElementById("bestBeacon"),
+            elBestBeacon = document.getElementById("best_beacon"),
             elPictureMain = document.getElementById("picture_main"),
             elNameArtist = document.getElementById("name_artist"),
             elNameWork = document.getElementById("name_work"),
@@ -59,10 +58,10 @@
                 if(strBestId && '' != strBestId.trim()) {
                     arrBestId = strBestId.split("-");
                     strBestIdCropped = arrBestId[arrBestId.length - 2] + "-" + arrBestId[arrBestId.length - 1];
+                    elBestBeacon.innerText = strBestIdCropped;
 
                     if(strBestId != strBestBeaconId) {
                         strBestBeaconId = strBestId;
-                        //elBestBeacon.innerText = strBestIdCropped + " [" + strBestId + "]";
                         objRequestor.retrieveJson(strBestIdCropped, getResource);
                     }
                 }
@@ -72,7 +71,7 @@
                 elPictureMain.style.backgroundImage = "url('" + objResponseData["solr"]["medium_image_url"] + "')";
                 elNameArtist.innerText = objResponseData["solr"]["artist_name"].join(", ");
                 elNameWork.innerText = objResponseData["solr"]["title_dk"];
-                elDescription.innerText = objResponseData["solr"]["reference_texts"].split("GoogleArt;-1>;:")[1].replace(";-;", "").replace("\n", "<br>");
+                elDescription.innerText = objResponseData["solr"]["reference_texts"].split("GoogleArt;-1>;:")[0].replace(";-;", "").replace("\n", "<br>");
                 if(undefined == elDescription.innerText || 'undefined' == elDescription.innerText) {
                     elDescription.innerText = "Der er desværre ingen beskrivelse til dette flotte stykke kunst :(";
                 }
@@ -84,6 +83,10 @@
             loadAudio = function(url) {
                 if(elAudioPlayer.hasChildNodes()) {
                     elAudioPlayer.removeChild(elAudioPlayer.firstChild);
+                }
+                if(null == url) {
+                    blnAudioPlaying = false;
+                    return;
                 }
 
                 blnAudioPlaying = false;

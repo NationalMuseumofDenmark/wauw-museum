@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.1.73, for debian-linux-gnu (i486)
+-- MySQL dump 10.13  Distrib 5.5.38, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: wauw
 -- ------------------------------------------------------
--- Server version	5.1.73-0ubuntu0.10.04.1
+-- Server version	5.5.38-0ubuntu0.14.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -35,9 +35,7 @@ CREATE TABLE `audio` (
 
 LOCK TABLES `audio` WRITE;
 /*!40000 ALTER TABLE `audio` DISABLE KEYS */;
-INSERT INTO `audio` VALUES ('18499-19998','http://www.gotfuturama.com/Multimedia/EpisodeSounds/1ACV02/07.mp3');
-INSERT INTO `audio` VALUES ('18998-42019', 'http://www.gotfuturama.com/Multimedia/EpisodeSounds/1ACV02/10.mp3');
-INSERT INTO `audio` VALUES ('6191-54583', 'http://www.gotfuturama.com/Multimedia/EpisodeSounds/1ACV02/16.mp3');
+INSERT INTO `audio` VALUES ('18499-19998','http://wauw.geekworld.dk/static/preview-constantin-hansen-i-kunstnerens-blik.mp3'),('18998-42019','http://wauw.geekworld.dk/static/preview-carl-bloch-i-kunstnerens-blik.mp3'),('6191-54583',NULL);
 /*!40000 ALTER TABLE `audio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -61,9 +59,7 @@ CREATE TABLE `beacon` (
 
 LOCK TABLES `beacon` WRITE;
 /*!40000 ALTER TABLE `beacon` DISABLE KEYS */;
-INSERT INTO `beacon` VALUES ('18499-19998','KKSgb9875/11');
-INSERT INTO `beacon` VALUES ('18998-42019', 'KKSgb9875/18');
-INSERT INTO `beacon` VALUES ('6191-54583', 'KKSgb9875/8');
+INSERT INTO `beacon` VALUES ('18499-19998','kms3236'),('18998-42019','kms4087'),('6191-54583','kms844');
 /*!40000 ALTER TABLE `beacon` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -99,4 +95,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-09-27 11:23:46
+-- Dump completed on 2014-09-28  5:38:09

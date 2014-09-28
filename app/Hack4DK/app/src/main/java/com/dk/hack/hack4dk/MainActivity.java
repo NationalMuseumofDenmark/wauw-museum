@@ -3,7 +3,10 @@ package com.dk.hack.hack4dk;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.RemoteException;
 import android.util.Log;
 import android.view.Menu;
@@ -11,6 +14,7 @@ import android.view.MenuItem;
 import android.content.Context;
 import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
@@ -19,6 +23,7 @@ import com.estimote.sdk.Beacon;
 import com.estimote.sdk.BeaconManager;
 import com.estimote.sdk.Region;
 
+import java.io.IOException;
 import java.util.List;
 
 public class MainActivity extends Activity {
@@ -49,6 +54,11 @@ public class MainActivity extends Activity {
 
     Activity activity;
 
+    // Audio
+    private MediaRecorder recorder = null;
+    private static String recFileName = null;
+    private MediaPlayer mediaPlayer = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +83,9 @@ public class MainActivity extends Activity {
             }
         });
 
+        // Autoplay sound.
+        webView.getSettings().setMediaPlaybackRequiresUserGesture(false);
+
         // Configure BeaconManager.
         beaconManager = new BeaconManager(this);
         beaconManager.setRangingListener(new BeaconManager.RangingListener() {
@@ -89,7 +102,7 @@ public class MainActivity extends Activity {
 
                         allBeacons = beacons;
 
-                        getActionBar().setSubtitle("Found beacons: " + beacons.size());
+                        //getActionBar().setSubtitle("Found beacons: " + beacons.size());
                     }
                 });
             }
@@ -98,6 +111,53 @@ public class MainActivity extends Activity {
         // Load the page.
         webView.loadUrl(url);
 
+        recFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
+        recFileName += "/audiorecordtest.3gp";
+
+        log("Filename: " + recFileName);
+
+    }
+
+    private void startRec() {
+        recorder = new MediaRecorder();
+        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        recorder.setOutputFile(recFileName);
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+        try {
+            recorder.prepare();
+        } catch (IOException e) {
+            Log.e(TAG, "Recorder prepare() failed");
+        }
+
+        try {
+            recorder.start();
+        } catch(IllegalStateException is) {
+            Toast.makeText(context, "Recording not possible on this device", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void stopRec() {
+        recorder.stop();
+        recorder.release();
+        recorder = null;
+    }
+
+    private void startPlaying() {
+        mediaPlayer = new MediaPlayer();
+        try {
+            mediaPlayer.setDataSource(recFileName);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+        } catch (IOException e) {
+            Log.e(TAG, "Player prepare() failed");
+        }
+    }
+
+    private void stopPlaying() {
+        mediaPlayer.release();
+        mediaPlayer = null;
     }
 
     private Beacon getBestBeacon(Beacon closestBeacon) {
@@ -220,7 +280,32 @@ public class MainActivity extends Activity {
         // Hardcoded beacons replace with beacon data.
         @JavascriptInterface
         public String getBestBeacon() {
+            log("GetBestBeacon: " + buildJSONBeaconObject(bestBeacon));
             return buildJSONBeaconObject(bestBeacon);
+        }
+
+        // start recording
+        @JavascriptInterface
+        public void startRecording() {
+            startRec();
+        }
+
+        // stop recording
+        @JavascriptInterface
+        public void stopRecording() {
+            stopRec();
+        }
+
+        // play recording
+        @JavascriptInterface
+        public void playMedia() {
+            startPlaying();
+        }
+
+        // stop recording
+        @JavascriptInterface
+        public void stopMedia() {
+            stopPlaying();
         }
 
     }
@@ -229,26 +314,6 @@ public class MainActivity extends Activity {
         if(logging) {
             Log.v(TAG, str);
         }
-    }
-
-    // Not used delete?
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     protected void onStart() {
@@ -279,15 +344,21 @@ public class MainActivity extends Activity {
         } catch (RemoteException e) {
             Log.d(TAG, "Error while stopping ranging", e);
         }
-
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        activity.finish();
-        System.gc();
+    }
+
+    @Override
+    public void finish() {
+        webView.clearHistory();
+        webView.clearCache(true);
+        webView.loadUrl("about:blank");
+        webView = null;
+        super.finish();
     }
 
     @Override
@@ -304,7 +375,7 @@ public class MainActivity extends Activity {
     }
 
     private void connectToService() {
-        getActionBar().setSubtitle("Scanning...");
+        //getActionBar().setSubtitle("Scanning...");
         beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
             @Override
             public void onServiceReady() {

@@ -30,15 +30,25 @@ body {
 .panel.left div {
     background: #fff;
 }
-.panel.left .controls {
-    position: relative;
-    bottom: -6em;
 
+.controls .left {
+    position: absolute;
+    bottom: 2%;
+    left: 6%;
 }
-.panel.left .controls img {
+
+.controls .right {
+    position: absolute;
+    bottom: 2%;
+    right: 6%;
+}
+
+.controls img {
     height: 4em;
     width: 4em;
+    padding-right: 1em;
 }
+
 #picture_main {
     background: no-repeat 50% 57%;
     background-size: 80% 34%;

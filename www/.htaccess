@@ -1,4 +1,4 @@
 RewriteEngine on
 RewriteRule ^api/asset/(.*)$ backend/index.php?id=$1 [L]
-RewriteRule ^js/(.*)$ frontend/js/$1 [L]
+RewriteRule ^(js|css|image)/(.*)$ frontend/$1/$2 [L]
 RewriteRule ^$ frontend/index.html [L]

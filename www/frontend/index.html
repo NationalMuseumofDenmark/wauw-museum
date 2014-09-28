@@ -77,7 +77,7 @@
                 elPictureMain.style.backgroundImage = "url('" + objResponseData["solr"]["medium_image_url"] + "')";
                 elNameArtist.innerText = objResponseData["solr"]["artist_name"].join(", ");
                 elNameWork.innerText = objResponseData["solr"]["title_dk"];
-                elDescription.innerText = objResponseData["solr"]["reference_texts"].split("GoogleArt;-1>;:")[1].replace(";-;", "").replace("\n", "<br>");
+                elDescription.innerText = objResponseData["solr"]["reference_texts"].split("GoogleArt;-1>;:")[1].replace(";-;", ""); //.replace("\n", "<br>");
                 if(undefined == elDescription.innerText || 'undefined' == elDescription.innerText) {
                     elDescription.innerText = "Der er desværre ingen beskrivelse til dette flotte stykke kunst :(";
                 }
@@ -100,6 +100,7 @@
                 elAudio.setAttribute('src', url);
                 elAudio.load();
                 elAudio.onloadstart = toggleAudio;
+                document.body.onclick = pauseAudio;
                 elControlListen.onclick = toggleAudio;
 
                 elAudioPlayer.appendChild(elAudio);
@@ -115,6 +116,14 @@
                     elControlListen.src = 'image/control_listening.png';
                     blnAudioPlaying = true;
                 }
+            },
+            playAudio = function() {
+                blnAudioPlaying = false;
+                toggleAudio();
+            },
+            pauseAudio = function() {
+                blnAudioPlaying = false;
+                toggleAudio();
             };
 
         setInterval(updateBestBeacon, 1000);

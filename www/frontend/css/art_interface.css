@@ -30,12 +30,12 @@ body {
 .panel.left div {
     background: #fff;
 }
-.panel.left #controls {
+.panel.left .controls {
     position: relative;
     bottom: -6em;
 
 }
-.panel.left #controls img {
+.panel.left .controls img {
     height: 4em;
     width: 4em;
 }

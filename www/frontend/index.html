@@ -127,7 +127,7 @@
             };
 
         document.body.onresize = function() {
-            document.querySelector(".panel.right").style.height = parseFloat(getComputedStyle(document.querySelector(".panel.left")).height) + "px";
+            document.querySelector(".panel.right").style.height = getComputedStyle(document.querySelector(".panel.left")).height;
         }
 
         setInterval(updateBestBeacon, 1000);

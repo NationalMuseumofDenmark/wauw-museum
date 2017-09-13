@@ -1,16 +1,13 @@
-About
------
+# About
 
 The beacon teams contribution to Hack4DK 2014. Consists of an android app and some web frontend- and backend code for showing art assets which are paired with the beacon.
 
 
-Demo
-----
+# Demo
 
 See the demo site http://wauw.geekworld.dk and YouTube presentation here: http://www.youtube.com/watch?v=7QIFbu8AuUk
 
-Authors
--------
+# Authors
 
 * https://github.com/Flygenring (Frontend + backend)
 * https://github.com/LeTysker (Android app development)
